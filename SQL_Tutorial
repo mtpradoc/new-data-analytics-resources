@@ -1,0 +1,52 @@
+-- SELECT
+/* 
+Dataset Amazon with columns review_id, user_id, submit_date, product_id, stars
+Product review - that shows the unique Id of the review,
+When the review was submitted, and how many stars the customer
+gave the product 
+*/
+
+SELECT review_id, submit_date, stars
+FROM reviews;
+
+-- WHERE
+/* Product reviews with low-start reviews 
+*/
+
+SELECT *
+FROM reviews
+WHERE stars < 4;
+
+-- WHERE WITH MULTIPLE CONDITIONS
+/* Find low-star reviews for a specific user. E.g. Less than 4 stars for 
+user Id 362
+*/
+
+SELECT *
+FROM reviews
+WHERE stars < 4
+  AND user_id = 362;
+
+-- WHERE WITH =
+/* Find the Amazon product reviews where the product being reviewed is 12580
+*/
+
+SELECT *
+FROM reviews
+WHERE product_id = 12580;
+
+/* Find all 3 star Amazon product reviews 
+*/
+
+SELECT *
+FROM reviews
+WHERE stars = 3;
+
+-- Use Operators: =, != or <>, <, >, <=, >=
+/* Get all 4-star reviews AND make sure they are NOT for product_id 50001
+*/
+
+SELECT *
+FROM reviews
+WHERE stars = 4
+AND product_id != 50001;
