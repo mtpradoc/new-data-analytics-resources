@@ -1,0 +1,81 @@
+-- SQL AND Operator
+/* Get all Amazon product reviews where the product reviewed had the ID 50001, and the
+stars rating was greater than 3
+*/
+
+SELECT *
+FROM reviews
+WHERE product_id = 50001
+AND stars > 3;
+
+-- AND in SQL vs AND in Google Sheets
+-- AND(D2 == 50001, E2>3)
+
+-- Mutltiple AND Operators
+/* 
+*/
+
+SELECT *
+FROM reviews
+WHERE stars > 3
+AND stars < 5
+AND product_id != 50001;
+
+-- SQL WHERE AND Practice Exercise
+/* Filter Amazon reviews based on all 4 of these conditions:
+1. The review should have 4 or more stars
+2. the review ID is less than 6000
+3. the review ID is more than 2000
+4. the review can't come from user 142
+*/
+
+SELECT *
+FROM reviews
+WHERE stars >= 4
+AND review_id < 6000
+AND review_id > 2000
+AND user_id != 142;
+
+-- SQL OR Operator
+/* The results show that the first two rows satisfy the first condition
+and the third row satisfy the second condition
+*/
+
+SELECT *
+FROM reviews
+WHERE stars > 3
+OR product_id = 50001;
+
+-- MULTIPLE OR STATEMENTS
+/*
+*/
+
+SELECT *
+FROM reviews
+WHERE (stars = 3 OR stars = 4)
+AND review_id > 5000;
+
+-- SQL AND OR Practice Exercise
+/* Filter Amazon product review on the following conditions
+- The star count is greater than 2, and less or equal to 4
+- The review must come from either user 123, 265, or 362
+*/
+
+SELECT *
+FROM reviews
+WHERE (stars > 2 AND stars <= 4)
+AND (user_id = 123 OR user_id = 265 OR user_id = 362);
+
+-- SQL NOT Operator
+/* Filtering reviews that don't have a 5-star rating
+*/
+
+SELECT * FROM reviews
+WHERE NOT stars = 5;
+
+-- NOT BETWEEN
+/* Amazon revews where the star count is NOT between 2 and 4 stars
+*/
+
+SELECT * FROM reviews
+WHERE stars NOT BETWEEN 2 AND 4;
