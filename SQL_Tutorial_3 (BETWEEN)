@@ -1,0 +1,52 @@
+-- WHERE with BETWEEN
+/* Suppose a journalist for the Olympics 2024 is writing a "Where Are They Know" article
+on golf medalists from the 2000s and is requesting data from the Olympics team.
+They could use the following BETWEEN query
+*/
+
+SELECT *
+FROM medals
+WHERE type = "GOLD"
+AND year BETWEEN 2000 AND 2010;
+
+-- other way to achieve the same result, no so elegant
+
+SELECT * 
+FROM medals
+WHERE type = "GOLD"
+AND (year = 2000 OR year = 2004 OR year = 2008);
+
+-- is BETWEEN inclusive?
+/* 
+In SQL, the BETWEEN operator's range is inclusive. That means both the start and the end values of the range are included!
+Imainge you are doing sales analytics and needed to find products whose price is above
+$10,000, but no more than $20,000 (inclusive). Here's is what that SQL query would look like
+using > and <=
+*/
+
+-- Correct Answer
+SELECT *
+FROM product_sales
+WHERE price > 10000
+AND price <= 20000;
+
+Incorrect Answer
+SELECT *
+FROM product_sales
+WHERE price BETWEEN 10000 AND 20000;
+
+/* so the diference?
+- WEHRE price > 10000 AND 20000 is inclusive which means the total price is more than or equal to $10,000, but less than or equal to $20,000.
+- WHERE price BETWEEN 10000 and 20000 is inclusive which means the total price is more than or equal to $10,000, but less than or equal to $20,000.
+*/
+
+-- SQL BETWEEN Practice Exercise
+/* Use the BETWEEN SQL command to find all data on:
+- medicines which sold between 100,000 units and 105,000 units
+- AND were manufactured by either Biogen, AbbVie, or Eli Lilly
+*/
+
+SELECT *
+FROM pharmacy_sales
+WHERE units_sold BETWEEN 100000 AND 105000
+AND (manufacturer = 'Biogen' OR manufacturer = "Abbvie" OR manufacturer = "Eli Lilly")
