@@ -1,0 +1,97 @@
+-- What SQL IN Does
+/* This command checks if a particular column value matches anything in the list of values you specify.
+Imagine you were a Data Analyst examining medicines sold at CVS Pharmacy.
+
+Suppose you wanted to focus your analysis just on the drugs sold by Biogen, Bayer, and Eli Lilly.
+
+You could use the IN operator to check if the manufacturer name is IN your list of values:
+*/
+
+SELECT drug, manufacturer, units_sold
+FROM pharmacy_sales
+WHERE manufacturer IN ('Biogen', 'Bayer', 'Eli lilly');
+
+-- This is much more consise than writing out:
+
+SELECT drug, manufacturer, units_sold
+FROM pharmacy_Sales
+WHERE manufacturer = 'Biogen'
+OR manufacturer = 'Bayer'
+OR manufacturer = 'Eli Lilly';
+
+-- SQL IN Practice Exercise
+/* try practicing IN on this real-world pharmacy analytics dataset. Write a SQL query to find all medicines which:
+- were manufactured by either Roche, Bayer, or AstraZeneca
+- and did not sell between 55,000 and 550,000 units
+*/
+
+SELECT *
+FROM pharmacy_sales
+WHERE manufacturer IN ('Roche', 'Bayer', 'AstraZeneca')
+AND units_sold NOT BETWEEN 55000 AND 550000;
+
+-- What's Next: LIKE
+/* LIKE allows us to filter strings based on patterns
+
+Imagine you were a Data Analytics who worked at CVS Pharmacy. You have access to a table called pharmacy_sales data.
+If you wanted to select all the drugs that had the name "Relief" somewhere in the drug name.
+*/
+
+SELECT product_id,
+  manufacturer,
+  drug
+FROM pharmacy_sales
+WHERE drug LIKE '%Relief%';
+
+/* The reason we use the % symbol is because it stands for a wild-card, and tells the database to match all the rows
+that have any characters before 'Relief; and any characters after relief - essentially making sure the word 'Relief'
+shows up somewhere in the drug column.
+*/
+
+-- SQL Wildcard Examples
+-- SQL LIKE % Example
+/* Imagine you are Elon Musk, the CEO of Twitter. One of your employees slightly disagreed with your vision for the product
+so want to fire them. Sadly, you can't quite remember their name, but are certain it started with 'ke' and ended in 'y'.
+
+Was it Kerry? Kenny? Kelsey?
+*/
+
+SELECT *
+FROM employees
+WHERE first_name LIKE 'Ke%y';
+
+-- SQL LIKE _ Example
+/* The underscore (_) is used as a wildcard to represent a single character. For example, say you wanted to find
+all 4 letter words in the dictionary that begin with 'f', and have 'c' as the 3rd letter.
+*/
+
+SELECT *
+FROM dictionary_words
+WHERE word LIKE 'f_c_';
+
+-- SQL Wildcard summary
+/*
+WHERE first_name LIKE 'a%'    -- Finds any values that starts with "a"
+WHERE first_name LIKE '%a'    -- Finds any values that ends with "a"
+WHERE first_name LIKE '%ae%'  -- Finds any values that have "ae" in the middle
+WHERE first_name LIKE '_b%'   -- Finds any values with "b" in the second position
+WHERE first_nmae LIKE 'a%o'   -- Finds any values that starts with "a" and ends with "o"
+WHERE first_name LIKE 'a__'   -- Finds any value that starts with "a" and has 3 characters
+*/
+
+-- SQL LIKE Practice Questions
+/* Find all customers whose first name starts with "F" and the last letter in their name is "ck"
+*/
+
+SELECT *
+FROM customers
+WHERE customer_name LIKE 'F%ck';
+
+/* Find all customers where the 2nd and 3rd letter in their name is "e".
+*/
+
+SELECT *
+FROM customers
+WHERE customer_name LIKE '_ee%';
+
+
