@@ -1,0 +1,141 @@
+-- 5 Ways To Filter Data With WHERE in SQL
+/*
+- how WHERE allows us to filter rows based on specified conditions
+- how AND and OR allow you to combine multiple filtering conditions
+- how BETWEEN allows you to filter on a range of values
+- how IN allows you to specify a list of values that you'd like to filter on
+- how LIKE allows you to match a value against a pattern
+
+
+=            Equals to                  user_id = 2
+!=, <>       Not equals to              user_id != 5
+<, >         Less than, more than       age < 5
+<=, >=       Less than or equal to,     age >= 2
+             more than or equal to
+BETWEEN ...  Integer is within range    pushups BETWEEN 20 AND 40
+AND ...      of two values (inclusive)
+
+IN (...)     Value is in a list        first_name IN ('Bob', 'Ann', 'Joe')
+LIKE         Checks if a string        first_name LIKE 'Jo%'
+             matches a pattern
+
+*/
+
+-- SQL Filtering Data Practice Exercise
+/* Analyze a dataset of 1,000 customer records from a small business in Australia
+
+Write a SQL query to find all customers who are between the ages of 18 and 22 (inclusive),
+live in either Victoria, Tasmania, Queensland, their gender isn't "n/a", and their name starts with either
+'A' or 'B'.
+*/
+
+SELECT *
+FROM customers
+WHERE age BETWEEN 18 AND 22
+AND state IN ('Victoria', 'Tasmania', 'Queensland')
+AND gender != 'n/a'
+AND (customer_name LIKE 'A%' OR customer_name LIKE 'B%');
+
+-- ORDER BY
+/* If we wanted to make it in order of their age? And how could we handle ties?
+*/
+
+SELECT *
+FROM customers
+WHERE age BETWEEN 18 AND 22
+AND state IN ('Victoria', 'Tasmania', 'Queensland')
+AND gender != 'n/a'
+AND (customer_name LIKE 'A%' OR customer_name LIKE 'B%');
+ORDER BY age, zip_code;
+
+-- SQL ORDER BY Tutorial with Examples
+/* Theoretically, rows in a relational database such as Postgres, MySQL, SQL Server, etc. aren't stored in any
+particular or guaranteed sort order. In fact, executing an identical SELECT * query twice on the same dataset
+doesn't ensure the results will come back in the same order.
+
+This is quite different than how a spreadsheet application like Excel or Google Sheets operates, so don't say 
+we didn't warn you! Fear not though, because SQL has the ORDER BY query where you explicitly specify the sort
+order for the resulting rows.
+*/
+
+-- SQL ORDER BY Example
+/* For example, imagine you had a table of medicines, and how well they sold at CVS Pharmacy. Running
+SELECT * FROM pharmacy_sales would result in un- ordered mess
+
+We could sort this alphabetically based on the drug's name, using ORDER BY:
+*/
+
+SELECT product_id, drug, units_sold
+FROM pharmacy_sales
+ORDER BY drug;
+
+-- Default Sort Order for ORDER BY
+/* ASC. For text is alphabetically and numerical from the smallest to the largest
+*/
+
+-- Descending Sort Order in SQL
+-- SQL ORDER BY DESC Example
+/* Suppose you worked as a Data Analyst at CVS pharmacy, and wanted to order the pharmacy sales data. so that the
+best-selling medicines came first. You would use ORDER BY DESC
+*/
+
+SELECT product_id, drug, units_sold
+FROM pharmacy_sales
+ORDER BY units_sold DESC;
+
+-- ORDER BY Multiple Columns
+/* The ORDER BY clause doesn't jsut work with one column - you can sort on two, or even multiple columns! To do
+multi-column sort
+*/
+
+-- ORDER BY Two Columns Example
+/* Suppose you are a Data Scientist working at UnitedHealth, and had access to data generated from people
+calling the companies telephone support number.
+Suppose you needed to sort this data with the most recent phone calls listed first. However, you also wanted to
+have all phone calls from the same person (policy_holder_id) grouped together. Here's how you'd write the two
+column ORDER BY SQL query:
+*/
+
+SELECT policy_holder_id, call_category, call_received
+FROM callers
+ORDER BY policy_holder_id, call received DESC;
+
+-- ORDER BY Numbers, Not Column Names
+/* Pro tip: You can substitute numbers for column names in the ORDER BY clause. The numbers correspond to the columns
+you specify in the SELECT clause.
+*/
+
+SELECT policy_holder_id, call_category, call_date
+FROM callers
+ORDER BY 1, 3 DESC;
+
+/* 1 maps to the column policy_holder_id because it's 1st in the SELECT statement, and 3 represents
+call_date because it's the 3rd column named in the SELECT query.
+*/
+
+-- SQL LIMIT and OFFSET
+/* This query will get you the 5 most recent phone calls received. We often use LIMIT in conjunction with ORDER BY,
+because frequently, we're looking for the top X things, like the top 3 highest-grossing Amazon products, or the 
+top 5 most-streamed artists on Spotify.
+*/
+
+SELECT *
+FROM callers
+ORDER BY call_date DESC
+LIMIT 5;
+
+-- OFFSET
+/* We can control te results returned by specifying an offset using SQL keyword OFFSET.
+
+We can skip the first 10 phone clls and fetch the subsequent 5 phone calls received. This means that we're disregarding
+the first 10 rows of the sorted result, effectively starting our selection from the 11th row onwards.
+*/
+
+SELECT *
+FROM callers
+ORDER BY call_date DESC
+OFFSET 10
+LIMIT 5;
+
+
+
