@@ -77,5 +77,49 @@ each stock ever opened at? Order your results by price, in descending order.
 */
 
 SELECT
-
+  ticker,
+  MIN(open)
 FROM stock_prices
+GROUP BY ticker
+ORDER BY MIN(open) DESC;
+
+-- Can GROUP BY be used to remote duplicates?
+/* While GROUP BY isn't used for the purpose of finding duplicates, the command does allow you to collapse
+multiple rows with the same values into a single row. So, in a way, it could be considered as a way to get rid
+of duplicates for certain columns.
+
+Imagine you were visualizing this website traffic data from a Google Analytics report. To get rid of duplicate
+browser data, and aggregate this visits information, you could use the following GROUP BY query:
+*/
+
+SELECT
+  browser,
+  visits
+FROM google_analytics_data
+GROUP BY browser;
+
+-- GROUP BY Practice Exercise #2
+/* Suppose you are given a table of Data Science candidates, and their technical skills. How many candidates
+posses each of the different skills? Count of candidates form highest to lowest.
+*/
+
+SELECT
+  skill,
+  COUNT(*)
+FROM candidates
+GROUP BY skill
+ORDER BY 2 DESC 1 ASC;
+
+-- What's the difference between GROUP BY and ORDER BY?
+/* Take FAANG stock data, and find the average stock open price for each ticker symbol. Then, ORDER BY the 
+average stock open price, from highest to lowest.
+*/
+
+SELECT
+  ticker,
+  AVG(open) AS avg
+FROM stock_prices
+GROUP BY ticker
+ORDER BY avg DESC;
+
+
