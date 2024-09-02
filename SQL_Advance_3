@@ -1,0 +1,39 @@
+-- SQL HAVING
+/* Suppose it's not enough to know the aggregated stats for each FAANG stock. Instead, say we wanted to display
+just the stocks whose average open price was greater tha $200 per share.
+
+You would think that the WHERE clause would help. You will get hit with the error message "aggregate functions
+are not allowed in WHERE".
+
+SELECT ticker, AVG(open)
+FROM stock_prices
+WHERE AVG(open) > 200
+GROUP BY ticker;
+!!!! ERROR not allowed in wHERE
+
+HAVING clause can come to rescue! In SQL, HAVING allows you to filter data based on values from aggregate functions.
+
+Here's an example HAVING query that finds all FAANG stocks with an average share open price of more than $200.
+*/
+
+SELECT
+  ticker,
+  AVG(open)
+FROM stock_prices
+GROUP_BY ticker
+HAVING AVG(open) > 200;
+
+-- WHERE vs. HAVING
+/* The difference between WHERE vs. HAVING is a common conceptual SQL interview question.
+WHERE filters on indiviual rows, versis HAVING filters values aggregated from groups of rows.
+
+WHERE filters values BEFORE Grouping
+- Operates on Data From individual rows
+- Example: SELECT username, followers FROM instagram_data WHERE followers > 1000;
+
+HAVING filters values AFTER Grouping
+- Operates on Data From Aggregated Values from Groups of Rows
+- Example: SELECT country FROM instagram_data GROUP BY country HAVING AVG(followers) > 100;
+*/
+
+-- SQL HAVING Practice Exercise
