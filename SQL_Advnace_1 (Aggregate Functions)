@@ -1,0 +1,127 @@
+-- SQL Aggregate Functions
+/*
+
+- SUM adds together all the values in a particular column.
+- MIN returns the lowest value in a particular column.
+- MAX returns the highest value in a particular column.
+- AVG calculates the average of a group of selected values.
+- COUNT counts how many rows are in a particular column.
+
+*/
+
+-- Counting Number of Orders with SQL COUNT()
+/* The COUNT() function enables you to count the total number of rows in a table. 
+We can use the COUNT() function on the user_id column as follows:
+*/
+
+SELECT COUNT(user_id)
+FROM product_spend;
+
+/* Frequently, one of the first things we do after SELECT * 'ing the data to explore it is then
+count how big the dataset is. We do this with the following query:
+*/
+
+SELECT COUNT(*)
+FROM table_name;
+
+-- Output the number of rows in the pharmacy_sales table
+
+SELECT COUNT(*)
+FROM pharmacy_sales;
+
+-- Calculating Total Sales with SQL SUM()
+/* The SUM() function calculates the sum of numeric values in a column. To calculate the total amount
+of money spent on Amazon products, we can use the SUM() function to sum the spend column.
+*/
+
+SELECT SUM(spend)
+FROM product_spend;
+
+/* Imagine you are a Data Analyst working at CVS Pharmacy, and you had access to pharmacy sales data.
+
+Output the total number of drugs manufactured by Pfizer, and output the total sales for all the Pfizer drugs.
+*/
+
+SELECT COUNT(manufacturer), SUM(total_sales)
+FROM pharmacy_sales
+WHERE manufacturer = 'Pfizer';
+
+-- Finding the Average Price with SQL AVG()
+/* The AVG() function computes the average value of numeric data in a column. To find the average price of
+an Amazon order, we can use the AVG() function on the spend column.
+*/
+
+SELECT AVG(spend)
+FROM product_spend;
+
+/* write a SQL query using AVG to find the average open price for Google stock (which has a stock
+ticker symbol of 'GOOG')
+*/
+
+SELECT AVG(open)
+FROM stock_prices
+WHERE ticker = 'GOOG';
+
+-- Finding the Minimum with SQL MIN()
+/* The MIN() function identifies the smallest value in a column To find the lowest priced Amazon
+product order, we can use the MIN() function on the spend column().
+*/
+
+SELECT MIN(spend)
+FROM product_spend;
+
+/* Use SQL MIN command to find the lowest Microsoft stock (MSFT) ever opened at:
+*/
+
+SELECT MIN(open)
+FROM stock_prices
+WHERE ticker = 'MSFT';
+
+-- Discovering the Maximum Price with SQL MAX()
+/* The MAX() function retrieves the largest value in a column. To find the highest priced Amazon
+product order, we can use the MAX() function on the spend column.
+*/
+
+SELECT MAX(spend)
+FROM product_spend;
+
+/* Use SQL MAX command to find the highest Netflix stock (NFLX) ever opened at
+*/
+
+SELECT MAX(open)
+FROM stock_prices
+WHERE ticker = 'NFLX';
+
+-- Real-World Scenarios: Utilizing SQL Aggregate Functions for Practical Insights
+/*
+1. Calculating Total Sales for Financial Analysis
+- Scenario: A business wants to analyze its total sales over a specific period to assess its 
+financial performance.
+- Use Case: The SUM() function can be used to calculate the total revenue generated from sales during
+the chosen time frame, aiding in financial planning and analysis.
+
+2. Average Ratings for Product Reviews
+- Scenario: An e-commerce platform wants to showcase the average rating of products based on 
+customer reviews.
+- Use Case: The AVG() function can calculate the average rating of products, helping customers
+make informed purchasing decisions.
+
+3. Identifying Most Active Users
+- Scenario: A social networking site wants to recognize its most active users based on the number
+of posts they've made.
+- Use Case: The COUNT() function can tally the number of posts for each user, highlighting the most
+prolific contributors.
+
+4. Finding Lowest and Highest Prices
+- Scenario: A travel website wants to display the cheapest and most expensive flight options for
+users.
+- Use Case: The MIN() and MAX() functions can identify the lowest and highest prices for flights,
+allowing users to quickly compare options.
+
+5. Tracking Student Performance in Education
+- Scenario: An educational institution wants to track student performance by calculating average
+scores and identifying top performers.
+- Use Case: The AVG() function can compute the average scores of students, while the MAX() function
+can help find the highest scorers.
+*/
+
