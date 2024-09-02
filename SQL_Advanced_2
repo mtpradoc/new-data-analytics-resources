@@ -1,0 +1,81 @@
+-- SQL GROUP BY
+/* The SQL aggregate functions like AVG, MIN, and SUM from the previous lesson process an entire
+column to come up with an answer. But what if you want to aggregate only part of a table?
+
+For example, instead of finding the average price all Amazon products orders, what if you want to 
+find the average spent by category (i.e. average spent on appliances vs. electronics?).
+
+For Excel users, the "pivot table" comes to mind, and the SQL equivalent to that concepts is the 
+GROUP BY command which tells the database to separate your data into groups, which can then be 
+aggregated indenpendently.
+
+Here's a GROUP BY example that groups Amazon products sales by category:
+*/
+
+SELECT
+  category,
+  SUM(spend)
+FROM product_spend
+GROUP BY category;
+
+/* Assume you're given a table containing data on Amazon customers and their spending on products
+in different category, write a query to identify the top two highest-grossing products within each
+category in the year 2022. The output should include the category, product, and total spend.
+*/
+
+-- GROUP BY vs. Excel Pivot Table
+/* Both GROUP BY in SQL and Pivot Tables in Excel are tools designed to aggregate and summarized data. To
+demonstrate their similarities, let's first create a Pivot table for a data set of FAANG sotcks.
+
+This pivot table finds the average open price for each stock, and the max close price for each stock
+
+You can notice that the 'rows' dialog box in the spreadsheet tool is essentially asking you what column you
+want to group by ("ticker"), and the values box is asking you what column values you want to display ("open",
+"close"), and how they'll be aggregaed (average, max).
+
+This is the equivalent to the SQL GROUP BY query:
+*/
+
+SELECT 
+  ticker,
+  AVG(open),
+  MAX(close)
+FROM stock_prices
+GROUP BY ticker
+ORDER BY ticker;
+
+-- GROUP BY Two Columns
+/* You can GROUP BY two columns, even multiple columns, in SQL. To group by multiple categories, just separate
+column names with commas.
+For an example of grouping by multiple columns, here's the average stock open price grouped by each ticker
+symbol and group by each year:
+*/
+
+SELECT
+  ticker,
+  EXTRACT(YEAR FROM date) AS year,
+  ROUND(AVG(open),2) AS avg_open
+FROM stock_prices
+GROUP BY ticker, year
+ORDER BY year DESC;
+
+/* And again, just like with ORDER BY syntax for multiple columns, for shorthand, you can use numbers instead
+of typing out the full column names, to make your query more concise. 
+*/
+
+SELECT
+  ticker,
+  EXTRACT(YEAR FROM date) AS year,
+  ROUND(AVG(open),2) AS avg_open
+FROM stock_prices
+GROUP BY 1, 2
+ORDER BY year DESC;
+
+-- GROUP BY Practice Exercise
+/* Given FAANG stock prices data, can you write a SQL query which uses GROUP BY to find the lowest price
+each stock ever opened at? Order your results by price, in descending order.
+*/
+
+SELECT
+
+FROM stock_prices
